@@ -26,7 +26,7 @@ export default function ProductEditor({ params }: { params: Promise<{ id: string
     
     const files = Array.from(e.target.files);
     // Limit to remaining slots
-    const remainingSlots = 3 - images.length;
+    const remainingSlots = 30 - images.length;
     const filesToUpload = files.slice(0, remainingSlots);
 
     let newImages = [...images];
@@ -196,7 +196,7 @@ export default function ProductEditor({ params }: { params: Promise<{ id: string
           <div>
             <div className="flex justify-between items-center mb-4 border-b pb-2">
               <h3 className="text-lg font-bold text-gray-900">Product Images</h3>
-              <span className="text-sm text-gray-500">{images.length}/3 Images</span>
+              <span className="text-sm text-gray-500">{images.length}/30 Images</span>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -209,7 +209,7 @@ export default function ProductEditor({ params }: { params: Promise<{ id: string
                 </div>
               ))}
               
-              {images.length < 3 && (
+              {images.length < 30 && (
                 <label className="aspect-square rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-500 hover:text-primary hover:border-primary hover:bg-red-50 transition-colors cursor-pointer">
                   {uploading ? (
                      <span className="text-sm font-medium animate-pulse">Uploading...</span>
@@ -223,7 +223,7 @@ export default function ProductEditor({ params }: { params: Promise<{ id: string
                 </label>
               )}
             </div>
-            <p className="text-xs text-gray-500 mt-2">First image will be used as the thumbnail. Max 3 images allowed.</p>
+            <p className="text-xs text-gray-500 mt-2">First image will be used as the thumbnail. Max 30 images allowed.</p>
           </div>
 
           {/* Actions */}

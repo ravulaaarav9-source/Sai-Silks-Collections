@@ -106,7 +106,7 @@ export default function ProductDetails() {
             <p className="text-gray-600 leading-relaxed mb-8">{product.description}</p>
 
             <a
-              href={`https://wa.me/919642449960?text=Hello%20Sai%20Silks%20Collections,%20I'm%20interested%20in%20this%20product:%20${encodeURIComponent(product.name)}%0A%0AImage:%20${encodeURIComponent((product.images && product.images.length > 0) ? product.images[0] : 'No Image')}`}
+              href={`https://wa.me/919642449960?text=Hello%20Sai%20Silks%20Collections,%20I'm%20interested%20in%20this%20product:%20${encodeURIComponent(product.name)}%0A%0AImage:%20${encodeURIComponent((product.images && product.images.length > 0) ? product.images[activeImage] : 'No Image')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white px-8 py-4 rounded-md font-medium transition-all text-lg mb-10 shadow-md hover:shadow-lg"
