@@ -4,6 +4,7 @@ import { ArrowLeft, Upload, X, Save, Trash2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
+import imageCompression from 'browser-image-compression';
 
 const CATEGORIES = ["Cotton Sarees", "Designer Sarees", "Dress Materials", "Kalamkari", "Nighties", "Blouse Bundles", "Handloom Sarees", "Pattu Sarees"];
 
@@ -31,16 +32,29 @@ export default function ProductEditor({ params }: { params: Promise<{ id: string
 
     let newImages = [...images];
     for (const file of filesToUpload) {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `product-images/${fileName}`;
+      try {
+        // Compress the image before uploading
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1200,
+          useWebWorker: true
+        };
+        const compressedFile = await imageCompression(file, options);
 
-      const { error: uploadError } = await supabase.storage.from('products').upload(filePath, file);
-      if (!uploadError) {
-        const { data } = supabase.storage.from('products').getPublicUrl(filePath);
-        newImages.push(data.publicUrl);
-      } else {
-        alert("Error uploading image: " + uploadError.message);
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        const filePath = `product-images/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage.from('products').upload(filePath, compressedFile);
+        if (!uploadError) {
+          const { data } = supabase.storage.from('products').getPublicUrl(filePath);
+          newImages.push(data.publicUrl);
+        } else {
+          alert("Error uploading image: " + uploadError.message);
+        }
+      } catch (error) {
+        console.error('Error compressing image:', error);
+        alert("Error compressing image");
       }
     }
     
