@@ -94,7 +94,7 @@ export default function ProductDetails() {
             </div>
 
             <div className="mb-6 flex items-center gap-2">
-              {product.stock_status === 'in_stock' ? (
+              {product.stock_status === 'IN_STOCK' ? (
                 <span className="flex items-center text-green-600 font-medium text-sm">
                   <Check size={16} className="mr-1" /> In Stock - Ready to Ship
                 </span>
